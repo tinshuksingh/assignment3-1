@@ -3,7 +3,7 @@
 //1
 stage 'clone_AssignmentProject'
 node {
-git 'https://github.com/BitwiseInc/assignment3.git'
+checkout scm
 }
 
 //2
