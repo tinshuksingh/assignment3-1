@@ -12,5 +12,11 @@ public class DemoTest {
     {
         Assert.assertTrue(true);
     }
+    
+     @Test
+    public void dummyTest2()
+    {
+        Assert.assertTrue(false);
+    }
 
 }
