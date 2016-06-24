@@ -4,8 +4,8 @@ import com.bitwise.dominos.basicingredients.Pizza;
 import com.bitwise.dominos.basicingredients.Topping;
 import com.bitwise.dominos.inventories.PizzaInventory;
 import com.bitwise.dominos.inventories.ToppingInventory;
+import org.junit.Assert;
 import org.junit.Test;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 
