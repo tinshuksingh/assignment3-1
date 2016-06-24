@@ -27,12 +27,12 @@ public class Order {
 	public void setServiceTax(float serviceTax) {
 		this.serviceTax = serviceTax;
 	}
-	public float getTotalAmount() throws InvalidOrderException {
+	public float getTotalAmount() throws InvalidOrderException, InvalidCrustException {
 		if(null!= pizzaList && !pizzaList.isEmpty())
 		{
 		for(Pizza p : pizzaList)
 		{
-			System.out.println("price : "+p.getTotalPrice());
+			System.out.println("pizza name : "+p.getName()+"price : "+p.getTotalPrice());
 			totalAmount=totalAmount+p.getTotalPrice();
 		}
 		System.out.println("totalpizza price : "+totalAmount);

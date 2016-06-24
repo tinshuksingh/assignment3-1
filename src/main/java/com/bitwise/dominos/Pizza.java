@@ -1,5 +1,6 @@
 package com.bitwise.dominos;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,8 @@ public class Pizza {
 	String name;
 	String price;
 	String topping;
-	String crust;
-	List<String> extraTopping;
+	String crust = "Regular";
+	List<String> extraTopping = new ArrayList<String>();
 	
 	public String getName() {
 		return name;
@@ -74,7 +75,10 @@ public class Pizza {
 	public Pizza(String pizzaName, String pizzaTopping, String pizzaCrust) {
 		name=pizzaName;
 		topping=pizzaTopping;
-		crust=pizzaCrust;
+		if(null != pizzaCrust )
+			crust=pizzaCrust;
+		else
+			crust="Regular";
 	}
 
 	public int getPizzaPrice() {
@@ -84,7 +88,7 @@ public class Pizza {
 		return pizzaMap.get(name);
 	}
 
-	public int getTotalPrice() {
+	public int getTotalPrice() throws InvalidCrustException {
 		int pizzaPrice=pizzaMap.get(name);
 		int toppingPrice=0;
 		if(null != extraTopping)
@@ -92,7 +96,9 @@ public class Pizza {
 			Topping topping= new Topping();
 			toppingPrice=topping.getToppingPrice(extraTopping);
 		}
-		return pizzaPrice+toppingPrice;
+		int crustPrice = Crust.getCostOfCrust(getCrust());
+		System.out.println("crust: "+ getCrust()+ "price : "+ crustPrice);
+		return pizzaPrice+toppingPrice+crustPrice;
 	}
 
 

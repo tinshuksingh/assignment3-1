@@ -17,7 +17,7 @@ public class PizzaTest {
 	}
 	
 	@Test
-	public void shouldBeAbleToCalculatePizzaPriceWithTopping() {
+	public void shouldBeAbleToCalculatePizzaPriceWithTopping() throws InvalidCrustException {
 		Pizza pizza = new Pizza("Chicken Maxicana","Cheese Chicken Sauce","Cheese Burst");
 	
 		List<String> extraTopping= new ArrayList<String>();

@@ -19,6 +19,9 @@ public class Topping {
 		toppingList.put("Capsicum", 10);
 		toppingList.put("Panner", 80);
 		toppingList.put("Chicken Sausage", 110);
+		toppingList.put("Cheese", 20);
+		toppingList.put("Olives", 15);
+		toppingList.put("Barbeque Chicken", 100);
 	}
 	
 	
