@@ -17,3 +17,10 @@ stage 'Unit Test'
 node{
   sh './gradlew test --info'
 }
+
+//5
+stage 'JaCoCo-Coverage-report'
+node{
+    sh './gradlew jacoco --info'
+}
+
