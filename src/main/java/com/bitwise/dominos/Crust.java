@@ -14,5 +14,14 @@ static Map<String,Integer> crustList= new HashMap<String, Integer>();
 		crustList.put("Cheese Burst", 200);
 	}
 	
+	public static int getCostOfCrust(String name) throws InvalidCrustException{
+		if(!crustList.containsKey(name))
+		{
+			throw new InvalidCrustException();
+		}
+		
+		return crustList.get(name);
+		
+	}
 	
 }
