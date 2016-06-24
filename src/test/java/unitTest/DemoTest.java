@@ -1,16 +1,8 @@
 package unitTest;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 /**
- * Created by priyankad on 6/23/2016.
+ * Created by kriti.
  */
 public class DemoTest {
-    @Test
-    public void dummyTest()
-    {
-        Assert.assertTrue(true);
-    }
 
 }
