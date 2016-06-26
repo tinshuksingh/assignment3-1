@@ -1,0 +1,9 @@
+products:
+   C:\Users\Aniruddha Sinha\IdeaProjects\SCALA\Dominos-Pizza\src\main\scala\Library.scala -> C:\Users\Aniruddha Sinha\IdeaProjects\SCALA\Dominos-Pizza\build\classes\main\Library.class
+binary dependencies:
+   C:\Users\Aniruddha Sinha\IdeaProjects\SCALA\Dominos-Pizza\src\main\scala\Library.scala -> C:\Program Files\Java\jdk1.8.0_91\jre\lib\rt.jar
+   C:\Users\Aniruddha Sinha\IdeaProjects\SCALA\Dominos-Pizza\src\main\scala\Library.scala -> C:\Users\Aniruddha Sinha\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-library\2.11.8\ddd5a8bced249bedd86fb4578a39b9fb71480573\scala-library-2.11.8.jar
+source dependencies:
+external dependencies:
+class names:
+   C:\Users\Aniruddha Sinha\IdeaProjects\SCALA\Dominos-Pizza\src\main\scala\Library.scala -> Library
