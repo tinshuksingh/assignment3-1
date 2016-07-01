@@ -10,15 +10,15 @@ import org.junit.Test;
 public class PizzaTest {
 
 	@Test
-	public void shouldBeAbleToReturnPizzaPrice() {
-		Pizza pizza = new Pizza("Chicken Maxicana","Cheese Chicken Sauce","Cheese Burst");
+	public void shouldBeAbleToReturnPizzaPrice() throws InvalidOrderException {
+		Pizza pizza = new Pizza("Chicken Maxicana","Cheese Burst");
 		int price=pizza.getPizzaPrice();
 		assertEquals(300,price);
 	}
 	
 	@Test
-	public void shouldBeAbleToCalculatePizzaPriceWithTopping() throws InvalidCrustException {
-		Pizza pizza = new Pizza("Chicken Maxicana","Cheese Chicken Sauce","Cheese Burst");
+	public void shouldBeAbleToCalculatePizzaPriceWithTopping() throws InvalidCrustException, InvalidOrderException {
+		Pizza pizza = new Pizza("Chicken Maxicana");
 	
 		List<String> extraTopping= new ArrayList<String>();
 		extraTopping.add("Chicken Sausage");
@@ -30,6 +30,15 @@ public class PizzaTest {
 		int totalPrice=pizza.getTotalPrice();
 		assertEquals(515,totalPrice);
 		
+	}
+	
+	@Test(expected = InvalidOrderException.class)
+	public void shouldNotAcceptSmallCheeseBurst() throws InvalidOrderException {
+		Pizza pizza = new Pizza("Chicken Maxicana","Cheese Burst","Small");
+	}
+	@Test(expected = InvalidOrderException.class)
+	public void shouldNotAcceptLargeCheeseBurst() throws InvalidOrderException {
+		Pizza pizza = new Pizza("Chicken Maxicana","Cheese Burst","Large");
 	}
 
 }
