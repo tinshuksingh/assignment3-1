@@ -22,7 +22,7 @@ public class OrderPizza {
 	}
 
 	public double calcaulateTotalCost() {
-		validations(); 
+		validations();
 		for (Pizza pizza : pizzas) {
 			System.out.println("Cost : " + pizza.getPrize() + " Quantity :" + pizza.getQuantity());
 			totalCost += pizza.getPrize() * pizza.getQuantity();
@@ -30,13 +30,13 @@ public class OrderPizza {
 		System.out.println("adding service Tax: " + serviceTax + "%");
 		System.out.println("adding VAT : " + VATTax + "%");
 
-		totalCost = totalCost + (totalCost * (serviceTax / 100))+(totalCost * (VATTax / 100));
+		totalCost = totalCost + (totalCost * (serviceTax / 100)) + (totalCost * (VATTax / 100));
 
 		return totalCost;
 	}
 
 	private void validations() {
-		if(pizzas.isEmpty())
+		if (pizzas.isEmpty())
 			throw new NoPizzasToCalculate();
 	}
 
@@ -49,6 +49,7 @@ public class OrderPizza {
 		}
 		return message;
 	}
+
 	public class NoPizzasToCalculate extends RuntimeException {
 
 	}

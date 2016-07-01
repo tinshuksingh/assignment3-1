@@ -1,15 +1,17 @@
 package com.bitwiseglobal.pizza;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 public abstract class Pizza {
 	protected ArrayList<Toppings> additonalToppings = new ArrayList<Toppings>();
 	protected ArrayList<Toppings> deafultToppings = new ArrayList<Toppings>();
 
-	public void removeDeafultToppings(Toppings removeToppings) {
+	public void removeDeafultToppings(Toppings removeToppings)
+			throws CanNotRemoveDefaultToppingsFromSmallSizePizaaException {
+		if (this.getSizeofpizza().equals(SizeOfPizza.Small)) {
+			throw new CanNotRemoveDefaultToppingsFromSmallSizePizaaException();
+		}
 		boolean isToppingPresent = false;
 		Toppings myToppings = null;
 
@@ -37,6 +39,15 @@ public abstract class Pizza {
 	private int orginalCost;
 	Crust crust;
 	int quantity;
+	SizeOfPizza sizeofpizza = SizeOfPizza.Medium;
+
+	public SizeOfPizza getSizeofpizza() {
+		return sizeofpizza;
+	}
+
+	public void addSizeofpizza(SizeOfPizza sizeofpizza) {
+		this.sizeofpizza = sizeofpizza;
+	}
 
 	public int getQuantity() {
 		return quantity;
@@ -50,8 +61,14 @@ public abstract class Pizza {
 		return crust;
 	}
 
-	public void addCrust(Crust crust) {
-		this.crust = crust;
+	public void addCrust(Crust crust) throws CheeseBurstNotAvailableException {
+		if (!this.getSizeofpizza().equals(sizeofpizza.Small))
+			this.crust = crust;
+		else
+			throw new RuntimeException("You can not add crust for small size pizza");
+		if (this.getSizeofpizza().equals(sizeofpizza.Large) && this.getCrust().equals(crust.Cheese_Burst)) {
+			throw new CheeseBurstNotAvailableException("Cheese burst is not available with small size pizza");
+		}
 	}
 
 	public int getCost() {
@@ -62,9 +79,13 @@ public abstract class Pizza {
 		this.orginalCost = cost;
 	}
 
-	public void addToppings(Toppings Toppings) {
+	public void addToppings(Toppings Toppings) throws CanNotAddToppingsException {
 		// TODO Auto-generated method stub
-		this.additonalToppings.add(Toppings);
+		if (!this.getSizeofpizza().equals(sizeofpizza.Small))
+			this.additonalToppings.add(Toppings);
+		else
+			throw new CanNotAddToppingsException("You can not add toppings for small size pizza");
+
 	}
 
 	public double getPrize() {
@@ -96,6 +117,7 @@ public abstract class Pizza {
 			message += "Crust type :" + crust.name();
 			message += "\n";
 		}
+		message += "Size of pizza is : " + sizeofpizza.name();
 		message += "\n";
 		return message;
 	}
@@ -103,4 +125,28 @@ public abstract class Pizza {
 	public class DefaultToppingNotPresentException extends RuntimeException {
 
 	}
+
+	public class InvalidPizzaSizeException extends RuntimeException {
+
+	}
+
+	public class CanNotAddToppingsException extends Exception {
+
+		public CanNotAddToppingsException(String msg) {
+
+		}
+
+	}
+
+	public class CheeseBurstNotAvailableException extends Exception {
+
+		public CheeseBurstNotAvailableException(String msg) {
+
+		}
+	}
+
+	public class CanNotRemoveDefaultToppingsFromSmallSizePizaaException extends Exception {
+
+	}
+
 }

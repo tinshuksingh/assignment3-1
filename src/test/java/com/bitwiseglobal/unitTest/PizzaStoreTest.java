@@ -6,33 +6,37 @@ import org.junit.Test;
 import com.bitwiseglobal.order.OrderPizza;
 import com.bitwiseglobal.pizza.Crust;
 import com.bitwiseglobal.pizza.Pizza;
+import com.bitwiseglobal.pizza.Pizza.CanNotAddToppingsException;
+import com.bitwiseglobal.pizza.Pizza.CanNotRemoveDefaultToppingsFromSmallSizePizaaException;
+import com.bitwiseglobal.pizza.Pizza.CheeseBurstNotAvailableException;
+import com.bitwiseglobal.pizza.SizeOfPizza;
 import com.bitwiseglobal.pizza.Toppings;
 import com.bitwiseglobal.typesofpizzas.ChickenMaxicana;
+import com.bitwiseglobal.typesofpizzas.Cloud9;
 import com.bitwiseglobal.typesofpizzas.Margherita;
 import com.bitwiseglobal.typesofpizzas.NonVegHawaiianDelight;
 import com.bitwiseglobal.typesofpizzas.PeppyPaneer;
+import com.bitwiseglobal.typesofpizzas.SeventhHeaven;
 import com.bitwiseglobal.typesofpizzas.VegHawaiianDelight;
 import com.bitwiseglobal.typesofpizzas.VeggieParadise;
 import com.bitwiseglobal.typesofpizzas.ZestyChicken;
 
-/**
- * Created by priyankad on 6/23/2016.
- */
 public class PizzaStoreTest {
 	@Test
-	public void orderMargheritaPizza() {
-		// gien
-		Margherita margherita = new Margherita();
+	public void orderMargheritaPizza() throws CanNotAddToppingsException {
+		// given
+		Margherita margherita = new Margherita(SizeOfPizza.Medium);
 		// when
+		// margherita.addCost();
 		margherita.addToppings(Toppings.Tomato);
 		// then
 		Assert.assertEquals(160, margherita.getPrize(), 0);
 	}
 
 	@Test
-	public void orderVegHawaiianDelightPizza() {
-		// gien
-		VegHawaiianDelight vegHawaiianDelight = new VegHawaiianDelight();
+	public void orderVegHawaiianDelightPizza() throws CanNotAddToppingsException {
+		// given
+		VegHawaiianDelight vegHawaiianDelight = new VegHawaiianDelight(SizeOfPizza.Medium);
 		// when
 		vegHawaiianDelight.addToppings(Toppings.Capsicum);
 		vegHawaiianDelight.addToppings(Toppings.Panner);
@@ -41,9 +45,9 @@ public class PizzaStoreTest {
 	}
 
 	@Test
-	public void orderNonVegHawaiianDelightPizza() {
-		// gien
-		NonVegHawaiianDelight nonVegHawaiianDelight = new NonVegHawaiianDelight();
+	public void orderNonVegHawaiianDelightPizza() throws CanNotAddToppingsException, CheeseBurstNotAvailableException {
+		// given
+		NonVegHawaiianDelight nonVegHawaiianDelight = new NonVegHawaiianDelight(SizeOfPizza.Medium);
 		// when
 		nonVegHawaiianDelight.addToppings(Toppings.Smoked_Chicken);
 		nonVegHawaiianDelight.addCrust(Crust.Cheese_Burst);
@@ -52,9 +56,9 @@ public class PizzaStoreTest {
 	}
 
 	@Test
-	public void orderVeggieParadisePizza() {
-		// gien
-		VeggieParadise veggieParadise = new VeggieParadise();
+	public void orderVeggieParadisePizza() throws CanNotAddToppingsException, CheeseBurstNotAvailableException {
+		// given
+		VeggieParadise veggieParadise = new VeggieParadise(SizeOfPizza.Medium);
 		// when
 		veggieParadise.addToppings(Toppings.Capsicum);
 		veggieParadise.addCrust(Crust.Cheese_Burst);
@@ -63,9 +67,9 @@ public class PizzaStoreTest {
 	}
 
 	@Test
-	public void orderPeppyPaneerPizza() {
-		// gien
-		PeppyPaneer peppyPaneer = new PeppyPaneer();
+	public void orderPeppyPaneerPizza() throws CanNotAddToppingsException, CheeseBurstNotAvailableException {
+		// given
+		PeppyPaneer peppyPaneer = new PeppyPaneer(SizeOfPizza.Medium);
 		// when
 		peppyPaneer.addToppings(Toppings.Capsicum);
 		peppyPaneer.addCrust(Crust.Cheese_Burst);
@@ -74,9 +78,9 @@ public class PizzaStoreTest {
 	}
 
 	@Test
-	public void orderZestyChickenPizza() {
-		// gien
-		ZestyChicken zestyChicken = new ZestyChicken();
+	public void orderZestyChickenPizza() throws CanNotAddToppingsException, CheeseBurstNotAvailableException {
+		// given
+		ZestyChicken zestyChicken = new ZestyChicken(SizeOfPizza.Medium);
 		// when
 		zestyChicken.addToppings(Toppings.Capsicum);
 		zestyChicken.addCrust(Crust.Thin_Crust);
@@ -85,9 +89,9 @@ public class PizzaStoreTest {
 	}
 
 	@Test
-	public void orderChickenMaxicanaPizza() {
-		// gien
-		ChickenMaxicana chickenMaxicana = new ChickenMaxicana();
+	public void orderChickenMaxicanaPizza() throws CanNotAddToppingsException, CheeseBurstNotAvailableException {
+		// given
+		ChickenMaxicana chickenMaxicana = new ChickenMaxicana(SizeOfPizza.Medium);
 		// when
 		chickenMaxicana.addToppings(Toppings.Capsicum);
 		chickenMaxicana.addCrust(Crust.Regular);
@@ -97,7 +101,7 @@ public class PizzaStoreTest {
 
 	@Test(expected = OrderPizza.NoPizzasToCalculate.class)
 	public void CalculateWithNoPizza() {
-		// gien
+		// given
 		OrderPizza orderPizza = new OrderPizza();
 		// when
 		orderPizza.calcaulateTotalCost();
@@ -105,13 +109,14 @@ public class PizzaStoreTest {
 	}
 
 	@Test
-	public void CalculateTotalOrderCostForFewPizzas() {
-		// gien
+	public void CalculateTotalOrderCostForFewPizzas()
+			throws CanNotAddToppingsException, CheeseBurstNotAvailableException {
+		// given
 		OrderPizza orderPizza = new OrderPizza();
-		ZestyChicken zestyChicken = new ZestyChicken();
+		ZestyChicken zestyChicken = new ZestyChicken(SizeOfPizza.Medium);
 		zestyChicken.addToppings(Toppings.Capsicum);
 		// 580
-		ChickenMaxicana chickenMaxicana = new ChickenMaxicana();
+		ChickenMaxicana chickenMaxicana = new ChickenMaxicana(SizeOfPizza.Medium);
 		chickenMaxicana.addCrust(Crust.Pan_Pizza);
 		// 1200
 		// when
@@ -123,11 +128,13 @@ public class PizzaStoreTest {
 
 	@Test
 	public void order1() {
-		// gien
+		// given
 		OrderPizza orderPizza = new OrderPizza();
-		VeggieParadise veggieParadise = new VeggieParadise();
-		ZestyChicken zestyChicken = new ZestyChicken();
-		ChickenMaxicana chickenMaxicana = new ChickenMaxicana();
+		VeggieParadise veggieParadise = new VeggieParadise(SizeOfPizza.Medium);
+
+		ZestyChicken zestyChicken = new ZestyChicken(SizeOfPizza.Medium);
+
+		ChickenMaxicana chickenMaxicana = new ChickenMaxicana(SizeOfPizza.Medium);
 
 		orderPizza.addpizza(veggieParadise, 1);
 		orderPizza.addpizza(zestyChicken, 1);
@@ -138,45 +145,46 @@ public class PizzaStoreTest {
 	}
 
 	@Test
-	public void order2() {
-		// gien
+	public void order2() throws CanNotAddToppingsException, CheeseBurstNotAvailableException {
+		// given
 		OrderPizza orderPizza = new OrderPizza();
 
-		VegHawaiianDelight vegHawaiianDelight = new VegHawaiianDelight();
-
+		VegHawaiianDelight vegHawaiianDelight = new VegHawaiianDelight(SizeOfPizza.Medium);
 		vegHawaiianDelight.addToppings(Toppings.Olives);
 		vegHawaiianDelight.addToppings(Toppings.Cheese);
 		vegHawaiianDelight.addCrust(Crust.Pan_Pizza);
 
-		NonVegHawaiianDelight nonVegHawaiianDelight = new NonVegHawaiianDelight();
+		NonVegHawaiianDelight nonVegHawaiianDelight = new NonVegHawaiianDelight(SizeOfPizza.Medium);
 		nonVegHawaiianDelight.addToppings(Toppings.Barbeque_Chicken);
 		nonVegHawaiianDelight.addCrust(Crust.Cheese_Burst);
 		// when
 		orderPizza.addpizza(vegHawaiianDelight, 1);
 		orderPizza.addpizza(nonVegHawaiianDelight, 1);
 		// then
-		Assert.assertEquals(1068, orderPizza.calcaulateTotalCost(), 1);
+		Assert.assertEquals(1068, orderPizza.calcaulateTotalCost(), 0.75);
 	}
 
 	@Test
-	public void order3() {
+	public void order3() throws CanNotAddToppingsException, CheeseBurstNotAvailableException,
+			CanNotRemoveDefaultToppingsFromSmallSizePizaaException {
 		// given
 		OrderPizza orderPizza = new OrderPizza();
-		PeppyPaneer peppyPaneer1 = new PeppyPaneer();
+		PeppyPaneer peppyPaneer1 = new PeppyPaneer(SizeOfPizza.Medium);
 		peppyPaneer1.removeDeafultToppings(Toppings.Capsicum);
 		peppyPaneer1.addToppings(Toppings.Olives);
 		peppyPaneer1.addToppings(Toppings.Baby_Corn);
 		peppyPaneer1.addCrust(Crust.Thin_Crust);
 
-		PeppyPaneer peppyPaneer2 = new PeppyPaneer();
+		PeppyPaneer peppyPaneer2 = new PeppyPaneer(SizeOfPizza.Medium);
 		peppyPaneer2.removeAllDeafultToppings();
 		peppyPaneer2.addToppings(Toppings.Cheese);
 		peppyPaneer2.addCrust(Crust.Thin_Crust);
 
-		Margherita margherita = new Margherita();
-		VegHawaiianDelight vegHawaiianDelight = new VegHawaiianDelight();
+		Margherita margherita = new Margherita(SizeOfPizza.Medium);
 
-		ZestyChicken zestyChicken = new ZestyChicken();
+		VegHawaiianDelight vegHawaiianDelight = new VegHawaiianDelight(SizeOfPizza.Medium);
+
+		ZestyChicken zestyChicken = new ZestyChicken(SizeOfPizza.Medium);
 		zestyChicken.removeDeafultToppings(Toppings.Paprika);
 		zestyChicken.addCrust(Crust.Cheese_Burst);
 		zestyChicken.addToppings(Toppings.Olives);
@@ -189,17 +197,80 @@ public class PizzaStoreTest {
 		orderPizza.addpizza(vegHawaiianDelight, 1);
 		orderPizza.addpizza(zestyChicken, 1);
 		// then
-		Assert.assertEquals(3093, orderPizza.calcaulateTotalCost(), 1);
+		Assert.assertEquals(3093, orderPizza.calcaulateTotalCost(), 0.75);
 
 	}
 
 	@Test(expected = Pizza.DefaultToppingNotPresentException.class)
-	public void defaultPizzaNotAvaliableToRemove() {
+	public void defaultPizzaNotAvaliableToRemove() throws CanNotRemoveDefaultToppingsFromSmallSizePizaaException {
 		// given
 		OrderPizza orderPizza = new OrderPizza();
-		PeppyPaneer peppyPaneer = new PeppyPaneer();
+		PeppyPaneer peppyPaneer = new PeppyPaneer(SizeOfPizza.Medium);
 		peppyPaneer.removeDeafultToppings(Toppings.Baby_Corn);
-		//when
-		//then
+		orderPizza.addpizza(peppyPaneer, 1);
+		// when
+		// then
+	}
+
+	@Test(expected = Pizza.CanNotAddToppingsException.class)
+	public void itShouldGiveExceptionIfWeAddToppingsForSmallSizePizza()
+			throws CanNotAddToppingsException, CheeseBurstNotAvailableException {
+		// given
+		ZestyChicken zestyChicken = new ZestyChicken(SizeOfPizza.Small);
+		// when
+		zestyChicken.addToppings(Toppings.Capsicum);
+		zestyChicken.addCrust(Crust.Thin_Crust);
+		// then
+
+	}
+
+	@Test(expected = Pizza.CheeseBurstNotAvailableException.class)
+	public void itShouldGiveExceptionIfWeAddCheeseBurstForSmallSizePizza() throws CheeseBurstNotAvailableException {
+		// given
+		ZestyChicken zestyChicken = new ZestyChicken(SizeOfPizza.Large);
+		// when
+		zestyChicken.addCrust(Crust.Cheese_Burst);
+		// then
+
+	}
+
+	@Test(expected = Pizza.CanNotAddToppingsException.class)
+	public void order4() throws CanNotAddToppingsException, CheeseBurstNotAvailableException,
+			CanNotRemoveDefaultToppingsFromSmallSizePizaaException {
+		// given
+		OrderPizza orderPizza = new OrderPizza();
+		Cloud9 cloud91 = new Cloud9(SizeOfPizza.Medium);
+		cloud91.removeDeafultToppings(Toppings.Capsicum);
+		cloud91.addCrust(Crust.Thin_Crust);
+		cloud91.addToppings(Toppings.Olives);
+		cloud91.addToppings(Toppings.Baby_Corn);
+
+		Cloud9 cloud93 = new Cloud9(SizeOfPizza.Small);
+		cloud93.removeAllDeafultToppings();
+		cloud93.addToppings(Toppings.Cheese);
+
+		Cloud9 cloud94 = new Cloud9(SizeOfPizza.Large);
+		cloud94.removeAllDeafultToppings();
+		cloud94.addToppings(Toppings.Cheese);
+
+		SeventhHeaven heaven = new SeventhHeaven(SizeOfPizza.Large);
+		heaven.addToppings(Toppings.Smoked_Chicken);
+		heaven.addToppings(Toppings.Cheese);
+
+		VegHawaiianDelight vegHawaiianDelight = new VegHawaiianDelight(SizeOfPizza.Medium);
+
+		ZestyChicken zestyChicken = new ZestyChicken(SizeOfPizza.Medium);
+		zestyChicken.addCrust(Crust.Cheese_Burst);
+		zestyChicken.removeDeafultToppings(Toppings.Paprika);
+		zestyChicken.addToppings(Toppings.Baby_Corn);
+		zestyChicken.addToppings(Toppings.Olives);
+		zestyChicken.addToppings(Toppings.Onion);
+		orderPizza.addpizza(cloud91, 2);
+		orderPizza.addpizza(cloud93, 1);
+		orderPizza.addpizza(cloud94, 1);
+		orderPizza.addpizza(heaven, 1);
+		orderPizza.addpizza(vegHawaiianDelight, 1);
+		orderPizza.addpizza(zestyChicken, 1);
+		// then
 	}
 }
