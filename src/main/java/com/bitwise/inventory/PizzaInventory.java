@@ -38,6 +38,12 @@ public class PizzaInventory {
 			put("Capsicum", 10);
 			put("Cheese", 20);
 			put("Barbeque Chicken", 100);
+			put("Paprika", 30);
+			put("Panner", 80);
+			put("Chicken Sausage", 110);
+			put("Onion", 10);
+			put("Smoked Chicken", 150);
+			put("Spicy Chicken", 90);
 		}
 	};
 }
