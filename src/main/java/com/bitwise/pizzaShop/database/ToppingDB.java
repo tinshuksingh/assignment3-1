@@ -4,6 +4,12 @@ import java.util.HashMap;
 
 import com.bitwise.pizzaShop.pizza.Topping;
 
+/**
+ * This class holds Pizza Topping database
+ * 
+ * @author Pravin
+ *
+ */
 public class ToppingDB {
 	private static HashMap<String, Topping> pizzaToppings;
 
@@ -24,7 +30,6 @@ public class ToppingDB {
 		pizzaToppings.put("Onion", new Topping("Onion", 10));
 		pizzaToppings.put("Cheese", new Topping("Cheese", 20));
 		pizzaToppings.put("Smoked Chicken", new Topping("Smoked Chicken", 150));
-		
 	}
 
 	public static HashMap<String, Topping> getPizzaToppings() {

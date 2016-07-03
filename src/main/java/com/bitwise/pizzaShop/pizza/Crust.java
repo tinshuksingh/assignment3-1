@@ -1,5 +1,7 @@
 package com.bitwise.pizzaShop.pizza;
 
+import com.bitwise.pizzaShop.database.CrustDatabase;
+
 public class Crust {
 	
 	private String crustType;
@@ -8,6 +10,11 @@ public class Crust {
 	public Crust(String crustType, int crustPrice){
 		this.crustType = crustType;
 		this.crustPrice = crustPrice;
+	}
+	
+	public Crust(String crustType){
+		this.crustType = crustType;
+		this.crustPrice = CrustDatabase.getPizzaCrusts().get(crustType).getCrustPrice();
 	}
 	
 	public String getCrustType() {

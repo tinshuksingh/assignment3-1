@@ -10,6 +10,7 @@ public class PizzaTest {
 	@Test(expected = PizzaShopException.class)
 	public void emptyPizzaName(){
 		Pizza p1 = new Pizza();
+		p1.setName("");
 		p1.validPizza();
 	}
 	

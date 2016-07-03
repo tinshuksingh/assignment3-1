@@ -4,6 +4,12 @@ import java.util.HashMap;
 
 import com.bitwise.pizzaShop.pizza.Crust;
 
+/**
+ * This class holds the Pizza Crust database
+ * 
+ * @author Pravin
+ *
+ */
 public class CrustDatabase {
 	private static HashMap<String, Crust> pizzaCrusts;
 	

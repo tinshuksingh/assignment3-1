@@ -8,6 +8,7 @@ public class PizzaOrder {
 	private ArrayList<Pizza> pizzasToOrder;
 	private final double VAT = 0.1;
 	private final double SERVICE_TAX = 0.15;
+	private double orderAmount;
 	
 	public double getVAT() {
 		return VAT;
@@ -24,6 +25,13 @@ public class PizzaOrder {
 	
 	public void setPizzasToOrder(ArrayList<Pizza> pizzasToOrder) {
 		this.pizzasToOrder = pizzasToOrder;
+	}
+	
+	public double getOrderAmount() {
+		return orderAmount;
+	}
+	public void setOrderAmount(double orderAmount) {
+		this.orderAmount = orderAmount;
 	}
 	
 	public void removePizza(String name){
@@ -53,32 +61,25 @@ public class PizzaOrder {
 				throw new PizzaShopException();
 			}
 		}
-		
 	}
 	
 	public double calculateOrderAmount(){
 		validateOrder();
 		
-		double orderAmount = 0.0;
+		orderAmount = 0.0;
 		
 		for (int i=0; i< getPizzasToOrder().size(); i++){
-			orderAmount = orderAmount + getPizzasToOrder().get(i).getPrice();
-			if (getPizzasToOrder().get(i) == null)
-				System.out.println("Pizza is  null");
-			if (getPizzasToOrder().get(i).getCrust() == null)
-				System.out.println("Crust is null");
-			orderAmount = orderAmount + getPizzasToOrder().get(i).getCrust().getCrustPrice();
+			Pizza pizza = getPizzasToOrder().get(i);
+			orderAmount = orderAmount + pizza.getPrizeMap().get(pizza.getPizzaSize());
+			orderAmount = orderAmount + pizza.getCrust().getCrustPrice();
 			
-			for (int j=0; j< getPizzasToOrder().get(i).getAdditionalTopping().size(); j++){
-				for (String topping : getPizzasToOrder().get(i).getAdditionalTopping().keySet()){
-					orderAmount = orderAmount + getPizzasToOrder().get(i).getAdditionalTopping().get(topping).getPrice();
-				}
+			for (String topping : pizza.getAdditionalTopping().keySet()){
+				orderAmount = orderAmount + pizza.getAdditionalTopping().get(topping).getPrice();
 			}
 		}
 		
-		orderAmount = orderAmount + (orderAmount * VAT);
-		orderAmount = orderAmount + (orderAmount * SERVICE_TAX);
-		System.out.println("orderAmount :"+orderAmount);
+		orderAmount = orderAmount + (orderAmount * VAT) + (orderAmount * SERVICE_TAX);
+
 		return orderAmount;
 		
 	}
@@ -87,4 +88,28 @@ public class PizzaOrder {
 		p.validPizza();
 		getPizzasToOrder().add(p);
 	}
+	
+	public void showOrderDetails(){
+		System.out.println("----------Your Pizza Order Details---------");
+		
+		for (int i=0; i< getPizzasToOrder().size(); i++){
+			Pizza pizza = getPizzasToOrder().get(i);
+			System.out.println(i + ". " + pizza.getName());
+			System.out.println(" Prize:"  + pizza.getPrizeMap().get(pizza.getPizzaSize()));
+			System.out.println(" - Crust	          : " + pizza.getCrust().getCrustType());
+			System.out.println(" - Crust Prize        : " + pizza.getCrust().getCrustPrice());
+			System.out.println(" - Default Topping    :");
+			for (int j=0; j<pizza.getDefaultToppipng().size(); j++){
+				System.out.println("    * " + pizza.getDefaultToppipng().get(j).getTopping());
+			}
+			System.out.println(" - Additional Topping & Prize:");
+			for (String addTopping: pizza.getAdditionalTopping().keySet()){
+				System.out.println("    * " + pizza.getAdditionalTopping().get(addTopping).getTopping() + " : " + pizza.getAdditionalTopping().get(addTopping).getPrice());
+			}
+			
+		}
+		System.out.println("**** Final Amount : " + getOrderAmount());
+		System.out.println("-------------------------------------------");
+	}
+	
 }

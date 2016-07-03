@@ -10,21 +10,18 @@ import com.bitwise.pizzaShop.exception.PizzaShopException;
 
 public class Pizza {
 	private String name;
+	private Crust crust;
+	private String pizzaSize;
 	private ArrayList<Topping> defaultToppipng;
 	private HashMap<String, Topping> additionalTopping;
-	private Crust crust;
-	private int price;
-	PizzaDatabase pizzaDatabase;
+	private HashMap<String, Integer> prizeMap;
 	
 	public Pizza(){
-		
 	}
-	public Pizza(String name, ArrayList<Topping> defaultToppipng, HashMap<String, Topping> additionalTopping, Crust crust,int price){
-		this.name=name;
-		this.defaultToppipng = defaultToppipng;
-		this.additionalTopping= additionalTopping;
-		this.crust= crust;
-		this.price=price;
+	
+	public Pizza(String name){
+		this.name = name;
+		setDefaultPizzaProperties(name);
 	}
 	
 	public String getName() {
@@ -33,6 +30,14 @@ public class Pizza {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void setDefaultPizzaProperties(String name){
+		this.crust = CrustDatabase.getPizzaCrusts().get("Regular");
+		this.prizeMap = PizzaDatabase.getAvailablePizzas().get(name).getPrizeMap();
+		this.defaultToppipng = (ArrayList<Topping>) PizzaDatabase.getAvailablePizzas().get(name).getDefaultToppipng().clone();
+		this.pizzaSize = "Medium";
 	}
 	
 	public ArrayList<Topping> getDefaultToppipng() {
@@ -57,53 +62,79 @@ public class Pizza {
 	public void setCrust(Crust crust) {
 		this.crust = crust;
 	}
-	public int getPrice() {
-		return price;
+	public String getPizzaSize() {
+		return pizzaSize;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+
+	public void setPizzaSize(String pizzaSize) {
+		this.pizzaSize = pizzaSize;
 	}
-	
+	public HashMap<String, Integer> getPrizeMap() {
+		return prizeMap;
+	}
+
+	public void setPrizeMap(HashMap<String, Integer> prizeMap) {
+		this.prizeMap = prizeMap;
+	}
 	public void validPizza(){
 		if (getName() == null || getName().trim().length() == 0){
-			System.out.println("Please enter valid pizza name");
-			throw new PizzaShopException();
+			throw new PizzaShopException("Please enter valid pizza name");
 		}
 		if (PizzaDatabase.getAvailablePizzas().get(getName()) == null){
-			System.out.println("Invalid pizza : " + getName());
-			throw new PizzaShopException();
-		}else{
-			this.defaultToppipng = PizzaDatabase.getAvailablePizzas().get(name).getDefaultToppipng();
-			this.crust = PizzaDatabase.getAvailablePizzas().get(name).getCrust();
-			this.price = PizzaDatabase.getAvailablePizzas().get(name).getPrice();
+			throw new PizzaShopException("Invalid pizza : " + getName());
 		}
 	}
 	
 	public void addTopping(String item){
+		if (getPizzaSize().equals("Small")){
+			throw new PizzaShopException("Customization is not allowed for Small size pizza");
+		}
 		if (ToppingDB.getPizzaToppings().get(item) == null ){
-			System.out.println("Invalid topping entered");
-			throw new PizzaShopException();
+			throw new PizzaShopException("Invalid topping entered");
 		}
 		
+		
 		getAdditionalTopping().put(item, ToppingDB.getPizzaToppings().get(item));
-		System.out.println("Added topping: " + item);
 	}
 	
 	public void removeTopping(String item){
+		if (getPizzaSize().equals("Small")){
+			throw new PizzaShopException("Customization is not allowed for Small size pizza");
+		}
 		if (getAdditionalTopping().get(item) == null ){
-			System.out.println("Topping: " + item + "has not added yet, so can't remove");
-			throw new PizzaShopException();
+			throw new PizzaShopException("Topping: " + item + "has not added yet, so can't remove");
 		}
 		getAdditionalTopping().remove(item);
-		System.out.println("Removed topping: " + item);
 	}
 	
 	public void ReplaceCrust(String item){
-		if (CrustDatabase.getPizzaCrusts().get(item) == null ){
-			System.out.println("Crust: " + item + "does not exist ");
-			throw new PizzaShopException();
+		if (getPizzaSize().equals("Small")){
+			throw new PizzaShopException("Customization is not allowed for Small size pizza");
 		}
+		if (! getPizzaSize().equals("Medium")){
+			throw new PizzaShopException("Crust: " + item + " is available with Medium size pizza only");
+		}
+		if (CrustDatabase.getPizzaCrusts().get(item) == null ){
+			throw new PizzaShopException("Crust: " + item + "does not exist ");
+		}
+		
 		setCrust(new Crust(item, CrustDatabase.getPizzaCrusts().get(item).getCrustPrice()));
-		System.out.println("Replaced crust with: " + item);
+	}
+	
+	public void removeAllDefaultTopping(){
+		getDefaultToppipng().clear();
+	}
+	
+	public void removeDefaultTopping(String topping){
+		if (getPizzaSize().equals("Small")){
+			throw new PizzaShopException("Customization is not allowed for Small size pizza");
+		}
+		for(int i=0; i<getDefaultToppipng().size(); i++){
+			if(topping.equals(getDefaultToppipng().get(i).getTopping())){
+				getDefaultToppipng().remove(i);
+				return;
+			}
+		}
+		throw new PizzaShopException("The toppping: " + topping + " is not default topping for selected pizza");
 	}
 }
