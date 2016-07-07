@@ -20,8 +20,4 @@ public enum PizzaSize {
 		return size;
 	}
 
-	public void setSize(String size) {
-		this.size = size;
-	}
-
 }
