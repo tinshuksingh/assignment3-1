@@ -4,6 +4,8 @@
 package com.pizzahut.pizza.order;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author virendra
@@ -11,18 +13,19 @@ import java.io.Serializable;
  */
 public class Order implements Serializable {
 	private static final long serialVersionUID = -1369156245704654015L;
-	private Cart cart;
+	private List<Pizza> pizzas;
 	
-	public Order(Cart cart) {
-		this.cart = cart;
+	public Order() {
+		pizzas = new ArrayList<Pizza>();
 	}
 
-	public Cart getCart() {
-		return cart;
+	public List<Pizza> getPizas() {
+		return pizzas;
 	}
 
-	public void setCart(Cart cart) {
-		this.cart = cart;
+	public void addPizza(Pizza pizza) {
+		pizzas.add(pizza);
 	}
+	
 
 }

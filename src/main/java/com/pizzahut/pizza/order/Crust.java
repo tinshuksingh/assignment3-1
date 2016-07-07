@@ -7,11 +7,16 @@ package com.pizzahut.pizza.order;
  * @author virendra
  *
  */
-public class Crust {
+public enum Crust {
+	PanPizza("Pan Pizza", 100),
+	ThinCrust("Thin Crust", 150),
+	Regular("Regular", 0),
+	CheeseBurst("Cheese Burst", 200);
+	
 	private String name;
 	private double price;
 	
-	public Crust(String name, double price) {
+	Crust(String name, double price) {
 		this.name = name;
 		this.price = price;
 	}
@@ -20,16 +25,8 @@ public class Crust {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public double getPrice() {
 		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
 	}
 
 }

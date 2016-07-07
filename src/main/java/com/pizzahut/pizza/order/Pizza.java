@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pizzahut.pizza.db.CrustDB;
 import com.pizzahut.pizza.exception.InvalidCusumizationException;
 
 /**
@@ -32,7 +31,7 @@ public class Pizza implements Serializable {
 		this.defaultToppings = defaultTopings;
 		this.basePrice = basePrice;
 		additionalToppings = new ArrayList<Topping>();
-		this.crust = CrustDB.Regular.getCrust();
+		this.crust = Crust.Regular;
 		this.pizzaSize = pizzaSize;
 	}
 
