@@ -47,7 +47,5 @@ private Pizza pizza;
 public Pizza getPizza() {
 return pizza;
 }
-public void setPizza(Pizza pizza) {
-this.pizza = pizza;
-}
+
 }
