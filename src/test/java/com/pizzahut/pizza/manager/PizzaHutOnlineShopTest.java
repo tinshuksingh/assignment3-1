@@ -22,7 +22,7 @@ public class PizzaHutOnlineShopTest {
 	}
 	
 	@Test(expected=InvalidOrderException.class)
-	public void shouldThrowExceptionIfIsEmpty() {
+	public void shouldThrowExceptionIfOrderIsEmpty() {
 		PizzaHutOnlineShop pizzaHutOnlineShop = new PizzaHutOnlineShop();
 		Order order = new Order();
 		pizzaHutOnlineShop.setOrder(order);
