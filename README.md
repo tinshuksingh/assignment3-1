@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Dominos-Pizza-scala
 Implementation of the back-end framework of a leading pizza vendor- Dominos. Pure immutability has been taken into consideration
 ===================================================================================
@@ -86,3 +87,7 @@ make two thin crust medium size, one small and one large.<br/>
 • One Seventh Heaven with extra smoked chicken and cheese and large please<br/>
 • One small veg Hawaiian Delight<br/>
 • One Medium Zesty Chicken cheese burst with no paprika and added baby corn, olives and onion.<br/>
+=======
+# assignment3
+Dominoz Pizza Assignment
+>>>>>>> 133d00ce0bffe69ad673dde723c46c47d9661883

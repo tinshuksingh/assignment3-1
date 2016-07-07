@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 *.jar
 *.iml
 *.ipr
 *.xml
 *.bat
+=======
+.idea
+build
+>>>>>>> 133d00ce0bffe69ad673dde723c46c47d9661883
