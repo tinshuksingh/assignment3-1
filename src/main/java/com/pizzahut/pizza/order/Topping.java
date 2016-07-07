@@ -35,4 +35,35 @@ public class Topping implements Serializable {
 		this.price = price;
 	}
 
+	/*@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(price);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}*/
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Topping other = (Topping) obj;
+		if(this.getName().equals(other.getName())) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Topping [name=" + name + ", price=" + price + "]";
+	}
+	
 }

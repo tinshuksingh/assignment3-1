@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pizzahut.pizza.db.CrustDB;
+import com.pizzahut.pizza.exception.InvalidCusumizationException;
 
 /**
  * @author virendra
@@ -20,17 +21,19 @@ public class Pizza implements Serializable {
 	private List<Topping> defaultToppings;
 	private double basePrice;
 	private Crust crust;
-	
+	private PizzaSize pizzaSize;
+
 	public Pizza(Pizza pizza) {
-		this(pizza.getName(),pizza.defaultToppings,pizza.basePrice);
+		this(pizza.getName(),pizza.defaultToppings,pizza.basePrice, pizza.getPizzaSize());
 	}
 	
-	public Pizza(String name, List<Topping> defaultTopings, double basePrice) {
+	public Pizza(String name, List<Topping> defaultTopings, double basePrice, PizzaSize pizzaSize) {
 		this.name = name;
 		this.defaultToppings = defaultTopings;
 		this.basePrice = basePrice;
 		additionalToppings = new ArrayList<Topping>();
 		this.crust = CrustDB.Regular.getCrust();
+		this.pizzaSize = pizzaSize;
 	}
 
 	public String getName() {
@@ -46,11 +49,21 @@ public class Pizza implements Serializable {
 	}
 
 	public void addAdditionalTopping(Topping additionalToping) {
+		if(this.getPizzaSize().equals(PizzaSize.Small)) {
+			throw new InvalidCusumizationException();
+		}
 		this.additionalToppings.add(additionalToping);
 	}
 
 	public List<Topping> getDefaultToppings() {
 		return defaultToppings;
+	}
+	
+	public void removeDefaultTopping(Topping topping) {
+		if(this.getPizzaSize().equals(PizzaSize.Small)) {
+			throw new InvalidCusumizationException();
+		}
+		defaultToppings.remove(topping);
 	}
 
 	public double getBasePrice() {
@@ -66,8 +79,17 @@ public class Pizza implements Serializable {
 	}
 
 	public void setCrust(Crust crust) {
+		if(!this.getPizzaSize().equals(PizzaSize.Medium)) {
+			throw new InvalidCusumizationException();
+		}
 		this.crust = crust;
 	}
 
+	public PizzaSize getPizzaSize() {
+		return pizzaSize;
+	}
 
+	public void setPizzaSize(PizzaSize pizzaSize) {
+		this.pizzaSize = pizzaSize;
+	}
 }
