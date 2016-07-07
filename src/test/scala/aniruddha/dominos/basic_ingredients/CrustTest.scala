@@ -1,12 +1,13 @@
 package aniruddha.dominos.basic_ingredients
 
+
 import org.junit.{Assert, Test}
 
 /**
   * Created by AniruddhaS on 6/27/2016.
   */
 class CrustTest {
-  @Test(expected = classOf[Crust.InvalidCrustNameException])
+@Test(expected = classOf[Crust.InvalidCrustNameException])
   def crustNameMustNoBeEmpty(): Unit ={
     //given
     Crust("",0)

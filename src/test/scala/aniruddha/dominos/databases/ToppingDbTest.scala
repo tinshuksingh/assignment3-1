@@ -17,11 +17,5 @@ class ToppingDbTest {
     Assert.assertEquals(100,price,0.02)
     Assert.assertEquals(150,price2,0.02)
   }
-  @Test(expected = classOf[NoSuchElementException])
-  def itShouldRaiseAnExceptionProvidedAnInvalidKeyIsEntered(): Unit ={
-    //given
-    val x=new ToppingDatabase
-    //when
-    val price=x.getPrice("Pork sausage")
-  }
+
 }
